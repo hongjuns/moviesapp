@@ -4,36 +4,50 @@ import {MoveList} from './components'
 
 class App extends Component {
   
-  state = {
-  }
+  state = {};
   
-  componentDidMount(){
-    setTimeout(()=> {
-        this.setState({
-          information: [
-            {
-              title: '올드보이',
-              poster: 'http://thumbnail.egloos.net/600x0/http://pds21.egloos.com/pds/201401/14/74/d0014374_52d48445edc68.jpg'
-            },
-            {
-              title: '마블',
-              poster: 'https://t1.daumcdn.net/cfile/tistory/27620B3D51DE386828'
-            }
-          ]
-        })
-    }, 5000)
-   }
-   _randerMovies = () =>{
-    const movies = this.state.information.map((information,index) => {
-      return <MoveList title={information.title} poster={information.poster} key={index}/>
-    })
-    return movies
+  componentDidMount() {
+    this._getMovies();
+  }
+
+
+  _renderMovies = () => {
+    const movies = this.state.movies.map(movie => {
+      return (
+        <MoveList
+          title={movie.title_english}
+          poster={movie.large_cover_image}
+          key={movie.id}
+          genres={movie.genres}
+          synopsis={movie.synopsis}
+        />
+      );
+    });
+    return movies;
+  };
+
+
+  _getMovies = async () => {
+    const movies = await this._callApi();
+    this.setState({
+      movies
+    });
+  };
+
+  _callApi =() => {
+    return fetch(
+      "https://yts.am/api/v2/list_movies.json?sort_by=download_count"
+    )
+    .then(Response =>Response.json())
+    .then(json => json.data.movies)
+    .catch(err =>console.log(err));
   }
   
   render() {
+        const { movies } = this.state;
         return (
             <div>
-                {this.state.information ? this._randerMovies() : 'Loading'}
+                 {movies ? this._renderMovies() : "Loading"}
             </div>
         );
     }
