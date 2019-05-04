@@ -9,8 +9,8 @@ class App extends Component {
   componentDidMount() {
     this._getMovies();
   }
-
-
+  
+  
   _renderMovies = () => {
     const movies = this.state.movies.map(movie => {
       return (

@@ -43,11 +43,23 @@
     color:#B4B5BD;
     overflow: hidden;
 }
+.Movie .BigMovie {
+    display: flex;
+}
+
+.Movie .BigMovie img {
+    max-width: 100%;
+    position: relative;
+    left: 10%;
+    box-shadow: -10px 19px 38px rgba(83, 83, 83, 0.3), 10px 15px 12px rgba(80,80,80,0.22);
+}
+
+
 
 .Movie .Movie__Poster{
     max-width: 100%;
     position: relative;
-    top:-20px;
+
     box-shadow: -10px 19px 38px rgba(83, 83, 83, 0.3), 10px 15px 12px rgba(80,80,80,0.22);
 }
 
